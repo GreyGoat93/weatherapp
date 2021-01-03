@@ -1,26 +1,61 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="app">
+    <transition name="loading-tra">
+      <loading v-if="state.isLoaded" class="loading-screen" />
+    </transition>
+    <transition name="loading-tra">
+      <weather-body v-if="!state.isLoaded" class="weather-body" />
+    </transition>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import { onMounted, reactive } from "vue";
+import Loading from "./components/Loading.vue";
+import WeatherBody from "./components/WeatherBody.vue";
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  components: { Loading, WeatherBody },
+  setup() {
+    const state = reactive({
+      isLoaded: true,
+    });
+
+    onMounted(() => {
+      setTimeout(() => {
+        state.isLoaded = false;
+      }, 500);
+    });
+
+    return { state };
+  },
+};
 </script>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #1fa1e0;
+}
+
+.d-none {
+  display: none;
+}
+
+.loading-screen {
+}
+
+.loading-tra-enter-active,
+.loading-tra-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.loading-tra-enter-from,
+.loading-tra-leave-to {
+  opacity: 0;
 }
 </style>
