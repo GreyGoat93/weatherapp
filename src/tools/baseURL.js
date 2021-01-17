@@ -1,5 +1,6 @@
 const baseURL = {
     current: process.env.VUE_APP_API_URL + "current" + process.env.VUE_APP_API_KEY,
+    forecast: process.env.VUE_APP_API_URL + "forecast" + process.env.VUE_APP_API_KEY,
     search: process.env.VUE_APP_API_URL + "search" + process.env.VUE_APP_API_KEY,
 };
 

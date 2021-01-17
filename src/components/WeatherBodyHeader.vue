@@ -51,7 +51,7 @@
         </div>
       </div>
       <div class="nav">
-        <p>Info</p>
+        <router-link to="/info" class="nav-link">Info</router-link>
       </div>
     </div>
   </header>
@@ -83,7 +83,7 @@ export default {
 
     function getForecastBySearchBox(cityUrl) {
       state.searchBox = "";
-      router.push(`/city/${cityUrl}`);
+      router.push({ path: `/city/${cityUrl}` });
     }
 
     return {
@@ -100,9 +100,13 @@ export default {
 
 <style scoped>
 header {
-  padding: 1em 0;
-  background: #555;
-  box-shadow: 0px 3px 5px 2px rgba(16, 71, 85, 0.5);
+  box-sizing: border-box;
+  z-index: 100;
+  position: fixed;
+  width: 100vw;
+  height: 120px;
+  display: flex;
+  align-items: center;
 }
 
 .header-inside {
@@ -116,6 +120,7 @@ header {
   width: 100%;
   display: flex;
   justify-content: center;
+  font-weight: bolder;
 }
 
 .search-box-container {
@@ -168,6 +173,7 @@ header {
   align-items: center;
   padding: 0.4em;
   font-size: 1em;
+  color: #000;
 }
 
 .search-box-dropdown-item:hover {
@@ -194,7 +200,26 @@ header {
   display: none;
 }
 
+.nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 0.4em;
+  border: 1px solid transparent;
+  border-radius: 0.2em;
+  transition: border 0.3s;
+}
+
+.nav-link:hover {
+  border: 1px solid white;
+  transition: border 0.3s;
+}
+
 @media (min-width: 768px) {
+  header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+  }
   .header-inside {
     justify-content: space-between;
     flex-flow: row;

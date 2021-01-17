@@ -5,6 +5,7 @@ const state = {
     currentCity: {},
     queriedCities: [],
     queriedCitiesLength: 0,
+    routeChanged: false,
 };
 
 const mutations = {
@@ -14,6 +15,9 @@ const mutations = {
     queryCities(state, payload) {
         state.queriedCities = payload[0];
         state.queriedCitiesLength = payload[1];
+    },
+    routeChanged(state, payload) {
+        state.routeChanged = payload;
     },
 };
 
@@ -36,13 +40,14 @@ const getters = {
             state.currentCity.current.condition.icon :
             "";
     },
+    routeChanged: (state) => state.routeChanged,
 };
 
 const actions = {
     async retrieveCity(state, cityUrl) {
         state.commit("retrieveCity", {});
         return axios
-            .get(baseURL.current + `&q=${cityUrl}`)
+            .get(baseURL.forecast + `&q=${cityUrl}&days=3`)
             .then((r) => {
                 state.commit("retrieveCity", r.data);
             })

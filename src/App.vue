@@ -37,16 +37,23 @@ export default {
   padding: 0;
 }
 
+html,
+body {
+  max-width: 100vw;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  color: #1fa1e0;
+  color: #fff;
+  height: 100%;
+}
+
+.app {
+  height: 100%;
 }
 
 .d-none {
   display: none;
-}
-
-.loading-screen {
 }
 
 .loading-tra-enter-active,
