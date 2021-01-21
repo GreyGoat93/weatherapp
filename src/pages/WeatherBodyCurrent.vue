@@ -14,7 +14,10 @@
             />
           </div>
           <div>
-            <p class="value">{{ temperature }}°</p>
+            <p
+              class="value"
+              v-text="getTemperature(currentCity.current, temperatureScale)"
+            ></p>
           </div>
         </div>
       </div>
@@ -32,6 +35,7 @@
 import WeatherTimeline from "../components/WeatherTimeline.vue";
 import { computed } from "vue";
 import { useStore } from "vuex";
+import getTemperature from "../tools/getTemperature.js";
 export default {
   components: { WeatherTimeline },
   setup() {
@@ -39,14 +43,15 @@ export default {
 
     const currentCity = computed(() => store.getters.currentCity);
     const cityName = computed(() => store.getters.cityName);
-    const temperature = computed(() => store.getters.temperature);
     const weatherIconSrc = computed(() => store.getters.weatherIconSrc);
+    const temperatureScale = computed(() => store.getters.temperatureScale);
 
     return {
       cityName,
-      temperature,
       weatherIconSrc,
       currentCity,
+      temperatureScale,
+      getTemperature,
     };
   },
 };

@@ -25,7 +25,7 @@
               :alt="time.condition.text"
               class="timeline-data-icon"
             />
-            <span v-text="Math.floor(time.temp_c) + '°'"> </span>
+            <span v-text="getTemperature(time, temperatureScale)"> </span>
           </td>
         </tr>
       </table>
@@ -42,8 +42,9 @@
 </template>
 
 <script>
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { useStore } from "vuex";
+import getTemperature from "../tools/getTemperature.js";
 export default {
   setup() {
     const slider = ref("");
@@ -53,6 +54,7 @@ export default {
 
     const store = useStore();
     const currentCity = computed(() => store.getters.currentCity);
+    const temperatureScale = computed(() => store.getters.temperatureScale);
 
     onMounted(() => {
       slider.value.addEventListener("mouseover", () => {
@@ -74,7 +76,8 @@ export default {
       });
     });
 
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
+      console.log(slider);
       slider.value.removeEventListener("mouseover", () => {
         slideLeft.value.classList.add("d-flex");
         slideRight.value.classList.add("d-flex");
@@ -92,6 +95,8 @@ export default {
       slideRight,
       weatherTimelineContainer,
       currentCity,
+      temperatureScale,
+      getTemperature,
     };
   },
 };
@@ -122,27 +127,20 @@ export default {
 
 .slide-left,
 .slide-right {
-  margin: 0.5em;
   width: 32px;
-  height: 32px;
+  height: 100%;
   display: none;
   align-items: center;
   justify-content: center;
-  background: #eee;
+  background: #eee4;
   color: #000;
-  border-radius: 50%;
   outline: none;
   -webkit-tap-highlight-color: transparent;
 }
 
-.slide-left:focus,
-.slide-right:focus {
-  outline: none;
-}
-
 .slide-left:hover,
 .slide-right:hover {
-  background: #111;
+  background: #1114;
   color: #eee;
   cursor: pointer;
   outline: none;

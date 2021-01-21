@@ -7,14 +7,19 @@
       <weather-body v-if="!state.isLoaded" class="weather-body" />
     </transition>
   </div>
+  <modal>
+    <settings-modal />
+  </modal>
 </template>
 
 <script>
 import { onMounted, reactive } from "vue";
 import Loading from "./components/Loading.vue";
 import WeatherBody from "./components/WeatherBody.vue";
+import Modal from "./components/Modal.vue";
+import SettingsModal from "./components/Modal/SettingsModal.vue";
 export default {
-  components: { Loading, WeatherBody },
+  components: { Loading, WeatherBody, Modal, SettingsModal },
   setup() {
     const state = reactive({
       isLoaded: true,
